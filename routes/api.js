@@ -44,11 +44,26 @@ router.get("/profiles/ds", (req, res) => {
 });
 
 //@desc('GET','/profile/update','Update a profile')
-
+// This is Non restful though 
 router.get("/profile/update", (req, res) => {
   const query = req.query; //require an id, key values to update for the profile
+  //   Profile.update(query)
+  //     .then(profile => {
+  //       if (profile) {
+  //         res.status(HTTP_STATUS.OK).json({
+  //           confirmation: "success",
+  //           data: profile
+  //         });
+  //       }
+  //     })
+  //     .catch(err =>
+  //       res
+  //         .status(HTTP_STATUS.INTERNAL_SERVER_ERROR)
+  //         .json({ confirmation: "fail", message: err.message })
+  //     );
 
-  Profile.update(query)
+  const profile_id = query.id;
+  Profile.findByIdAndUpdate(profile_id, query, { new: true })
     .then(profile => {
       if (profile) {
         res.status(HTTP_STATUS.OK).json({
@@ -58,9 +73,10 @@ router.get("/profile/update", (req, res) => {
       }
     })
     .catch(err =>
-      res
-        .status(HTTP_STATUS.INTERNAL_SERVER_ERROR)
-        .json({ confirmation: "fail", message: err.message })
+      res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({
+        confirmation: "fail",
+        message: err.message
+      })
     );
 
   // res.status(HTTP_STATUS.OK).json({
