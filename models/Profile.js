@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
-// Define the Schema
 
+// Define the Schema
 const ProfileSchema = new mongoose.Schema({
   firstname: {
     type: String,
