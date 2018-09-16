@@ -43,6 +43,32 @@ router.get("/profiles/ds", (req, res) => {
     });
 });
 
+//@desc('GET','/profile/update','Update a profile')
+
+router.get("/profile/update", (req, res) => {
+  const query = req.query; //require an id, key values to update for the profile
+
+  Profile.update(query)
+    .then(profile => {
+      if (profile) {
+        res.status(HTTP_STATUS.OK).json({
+          confirmation: "success",
+          data: profile
+        });
+      }
+    })
+    .catch(err =>
+      res
+        .status(HTTP_STATUS.INTERNAL_SERVER_ERROR)
+        .json({ confirmation: "fail", message: err.message })
+    );
+
+  // res.status(HTTP_STATUS.OK).json({
+  // 	confirmation: 'success',
+  // 	data: 'This is the update end point'
+  // });
+});
+
 //@desc('GET','/profiles/:id','Retrieve a specific profile')
 
 router.get("/profiles/:id", async (req, res) => {
@@ -72,13 +98,11 @@ router.post("/profile", (req, res) => {
   Profile.create(req.body)
     .then(profile => {
       if (profile)
-        res
-          .status(HTTP_STATUS.OK)
-          .json({
-            confirmation: "success",
-            data: profile,
-            message: "Profile got created"
-          });
+        res.status(HTTP_STATUS.OK).json({
+          confirmation: "success",
+          data: profile,
+          message: "Profile got created"
+        });
     })
     .catch(err =>
       res
