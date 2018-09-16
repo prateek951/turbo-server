@@ -39,4 +39,21 @@ router.get('/profiles/ds',(req, res) => {
 });
 
 
+//@desc('GET','/profiles/:id','Retrieve a specific profile')
+
+router.get('/profiles/:id',async (req, res) => {
+	try {
+		const { id } = req.params;
+		const profile = await Profile.findById(id);
+		if (profile) res.status(HTTP_STATUS.OK).json({confirmation: 'success', data: profile }); 
+	} catch (error) {
+		res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({
+			confirmation: 'fail',
+			message: error.message
+		});
+	}
+	
+})
+
+
 module.exports = router
