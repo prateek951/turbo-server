@@ -1,0 +1,30 @@
+[
+  {
+    "firstname": "Prateek",
+    "lastname": "Madaan",
+    "age": 21,
+    "position": "Full Stack Developer",
+    "team": "developers"
+  },
+  {
+    "firstname": "Karunya",
+    "lastname": "Mehta",
+    "age": 21,
+    "position": "Android Developer",
+    "team": "developers"
+  },
+  {
+    "firstname": "Dipanshu",
+    "lastname": "Kumar",
+    "age": 21,
+    "position": "Android Developer",
+    "team": "developers"
+  },
+  {
+    "firstname": "Navneet",
+    "lastname": "Juneja",
+    "age": 21,
+    "position": "Machine Learning Engineer",
+    "team": "datascientists"
+  }
+]

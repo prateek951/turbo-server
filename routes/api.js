@@ -5,18 +5,37 @@ const router = vertex.router();
 const HTTP_STATUS = require('http-status-codes');
 const Profile = require('../models/Profile');
 
-//@desc('GET','/','retrieve the profile')
+//@desc('GET','/profiles','retrieve the list of all the profiles')
 
-router.get('/profile',(req, res) => {
+router.get('/profiles',(req, res) => {
 
-	Profile.find({}).then(profiles => res.status(HTTP_STATUS.OK).json({
+	const query = req.query;
+
+	Profile.find(query).then(profiles => res.status(HTTP_STATUS.OK).json({
 		confirmation: 'success',
 		data: profiles
 	})).catch(err => res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({
 		confirmation: 'fail',
 		message: err.message
 	}));
-	
+});
+
+//@desc('GET','/profiles/ds','retrieve the list of those profiles where team is datascientists')
+
+router.get('/profiles/ds',(req, res) => {
+	Profile.find({team: 'datascientists'})
+	.then(profiles => {
+		res.status(HTTP_STATUS.OK).json({
+			confirmation: 'success',
+			data: profiles
+		});
+	})
+	.catch(err => {
+		res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({
+			confirmation: 'fail',
+			message: err.message
+		});
+	});
 });
 
 
