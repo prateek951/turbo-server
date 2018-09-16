@@ -44,7 +44,7 @@ router.get("/profiles/ds", (req, res) => {
 });
 
 //@desc('GET','/profile/update','Update a profile')
-// This is Non restful though 
+// This is Non restful though
 router.get("/profile/update", (req, res) => {
   const query = req.query; //require an id, key values to update for the profile
   //   Profile.update(query)
@@ -83,6 +83,30 @@ router.get("/profile/update", (req, res) => {
   // 	confirmation: 'success',
   // 	data: 'This is the update end point'
   // });
+});
+
+//@desc('DELETE','/profile/:id','Delete a specific profile')
+//restful (can be checked using POSTMAN or PUTTY client)
+// router.delete('/profile/remove/:id',async (req, res) => {
+// 	await Profile.remove({_id : req.params.id});
+// 	res.json({});
+// });
+
+//Delete request using GET Non restful
+router.get("/profile/remove", async (req, res) => {
+  const query = req.query;
+  try {
+    await Profile.remove({_id : query.id});
+    res.status(HTTP_STATUS.OK).json({
+	  confirmation: "success",
+	  data: {}
+    });
+  } catch (error) {
+	res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({
+		confirmation: "fail",
+		message: error.message
+	  });
+  }
 });
 
 //@desc('GET','/profiles/:id','Retrieve a specific profile')
