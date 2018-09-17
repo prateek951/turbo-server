@@ -9,7 +9,7 @@ const config = {
 // Database configuration. Remember to set env variables in .env file: MONGODB_URI, PROD_MONGODB_URI
 	db: { 					
 // url: (process.env.TURBO_ENV == 'dev') ? process.env.MONGODB_URI : process.env.PROD_MONGODB_URI,
-		url : 'mongodb://localhost:27017/mongoproj',
+		url : process.env.MONGO_URI,
 		type: 'mongo',
 		onError: (err) => {
 			console.log('DB Connection Failed!')
