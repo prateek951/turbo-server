@@ -93,20 +93,38 @@ router.get("/profile/update", (req, res) => {
 // });
 
 //Delete request using GET Non restful
-router.get("/profile/remove", async (req, res) => {
+// router.get("/profile/remove", async (req, res) => {
+//   const query = req.query;
+//   try {
+//     await Profile.remove({_id : query.id});
+//     res.status(HTTP_STATUS.OK).json({
+// 	  confirmation: "success",
+// 	  data: {}
+//     });
+//   } catch (error) {
+// 	res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({
+// 		confirmation: "fail",
+// 		message: error.message
+// 	  });
+//   }
+// });
+
+// Delete Profile in NON restful manner
+router.get("/profile/remove", (req, res) => {
   const query = req.query;
-  try {
-    await Profile.remove({_id : query.id});
-    res.status(HTTP_STATUS.OK).json({
-	  confirmation: "success",
-	  data: {}
-    });
-  } catch (error) {
-	res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({
-		confirmation: "fail",
-		message: error.message
-	  });
-  }
+  Profile.findByIdAndRemove(query.id)
+    .then(() =>
+      res.status(HTTP_STATUS.OK).json({
+        confirmation: "success",
+        data: {}
+      })
+    )
+    .catch(err =>
+      res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({
+        confirmation: "fail",
+        message: err.message
+      })
+    );
 });
 
 //@desc('GET','/profiles/:id','Retrieve a specific profile')
